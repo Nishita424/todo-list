@@ -98,9 +98,29 @@ function removeTask(e) {
   if (e.target.parentElement.classList.contains('delete-item')) {
     if (confirm('Are You Sure?')) {
       e.target.parentElement.parentElement.remove();
+
+      removeTaskInLocalStorage(
+        e.target.parentElement.parentElement.textContent
+      );
     }
   }
   e.preventDefault();
+}
+
+function removeTaskInLocalStorage(taskItem) {
+  let tasks;
+  if (localStorage.getItem('tasks') === '') {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.forEach(function (task, index) {
+    if (task === taskItem) {
+      tasks.splice(index, 1);
+    }
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Clear tasks
@@ -126,5 +146,4 @@ function filterTasks(e) {
       task.style.display = 'none';
     }
   });
-  console.log(text);
 }
