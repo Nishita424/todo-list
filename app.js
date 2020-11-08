@@ -29,7 +29,7 @@ function loadEventListeners() {
 // Get tasks from local storage
 function getTasks(e) {
   let tasks;
-  if (localStorage.getItem('tasks') === '') {
+  if (localStorage.getItem('tasks') === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -46,7 +46,6 @@ function getTasks(e) {
     // Create new tag class insdie a tag
     link.innerHTML = '<i class="fa fa-remove"></i>';
     li.appendChild(link);
-
     // Append to tasklist
     taskList.appendChild(li);
   });
@@ -132,6 +131,12 @@ function clearTasks(e) {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
+
+  clearTasksInLocalStorage();
+}
+
+function clearTasksInLocalStorage() {
+  localStorage.clear();
 }
 
 // Filter tasks with the matching letters being typed
