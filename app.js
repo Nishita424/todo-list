@@ -8,13 +8,12 @@ const taskInput = document.querySelector('#task');
 // Load all event listeners
 loadEventListeners();
 
-// Load all event listeners
 function loadEventListeners() {
   // Add task event
   form.addEventListener('submit', addTask);
 }
 
-// Add task to list when submit is clicked
+// Add task to list when Add Item is clicked
 function addTask(e) {
   if (taskInput.value === '') {
     alert('Add a task');
