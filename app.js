@@ -18,6 +18,9 @@ function loadEventListeners() {
 
   // Clear task list
   clearBtn.addEventListener('click', clearTasks);
+
+  // Filter tasks
+  filter.addEventListener('keyup', filterTasks);
 }
 
 // Add task to list when Add Item is clicked
@@ -60,7 +63,26 @@ function removeTask(e) {
 
 // Clear tasks
 function clearTasks(e) {
+  // Slower
+  // taskList.innerHTML = '';
+
+  // Faster
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
+}
+
+// Filter tasks with the matching letters being typed
+function filterTasks(e) {
+  let text = e.target.value.toLowerCase();
+
+  document.querySelectorAll('.collection-item').forEach(function (task) {
+    const item = task.firstChild.textContent;
+    if (item.toLowerCase().indexOf(text) != -1) {
+      task.style.display = 'block';
+    } else {
+      task.style.display = 'none';
+    }
+  });
+  console.log(text);
 }
